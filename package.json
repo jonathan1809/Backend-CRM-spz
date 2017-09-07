@@ -1,0 +1,35 @@
+{
+  "name": "api-rest-full",
+  "version": "1.0.0",
+  "description": "Api rest full for ideas app",
+  "main": "index.js",
+  "scripts": {
+    "test": "set NODE_ENV=test && nodemon --exec mocha --recursive -R min",
+    "start": "set NODE_ENV=production && nodemon --exec node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathan1809/api-rest-full.git"
+  },
+  "author": "MEAN TEAM",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonathan1809/api-rest-full/issues"
+  },
+  "homepage": "https://github.com/jonathan1809/api-rest-full#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
+    "connect-multiparty": "^2.0.0",
+    "express": "^4.15.4",
+    "jwt-simple": "^0.5.1",
+    "mocha": "^3.5.0",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.9",
+    "mongoose-pagination": "^1.0.0",
+    "supertest": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
