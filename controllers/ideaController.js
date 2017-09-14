@@ -31,6 +31,7 @@ module.exports = {
     },
 
     createImage(req,res,next){
+        console.log('add image');
         var imageProps = req.body;
         image.create(imageProps)
         .then(image => reshelpobject(200,image,res))
@@ -39,6 +40,7 @@ module.exports = {
         });
     },
     create(req,res,next){
+        console.log("add idea");
         var ideaProps = req.body;
         Idea.create(ideaProps)
         .then(idea => reshelpobject(200,idea,res))
@@ -242,6 +244,8 @@ module.exports = {
                 reshelperr(403,'No has subido una imagen ...',res);
         });
     },
+
+    
     
 };
 

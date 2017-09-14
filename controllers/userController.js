@@ -14,7 +14,9 @@ module.exports = {
                 console.log(hash);
                 User.create(userProps)
                 .then(user => reshelpobject(200,user,res))
-                .catch(next);
+                .catch(error => {
+                    reshelperr(500,error.message,res)
+                });
             });      
     },
 
@@ -36,9 +38,12 @@ module.exports = {
             };
             reshelpobject(200,object,res); 
         })
-        .catch(next);
+        .catch(error => {
+            reshelperr(500,error.message,res)
+        });
     },
     getCoachs(req,res,next){
+       
         var page = req.params.page;
         if(!page)
             page = 1;
@@ -50,13 +55,16 @@ module.exports = {
 
         Promise.all([query, User.count({ideaRole: 'COACH'})])
         .then((results) => {
+            console.log('entro peticion');
             const object = {
                 pages: results[1],
-                coachs: results[0]
+                coaches: results[0]
             };
             reshelpobject(200,object,res); 
         })
-        .catch(next);
+        .catch(error => {
+            reshelperr(500,error.message,res)
+        });
     },
 
     getCollaborators(req,res,next){
@@ -65,11 +73,11 @@ module.exports = {
             page = 1;
        
         var itemsPage = 10;
-        const query = User.find({ideaRole: 'COLABORATOR'})
+        const query = User.find({ideaRole: 'COLLABORATOR'})
         .sort('surname')
         .paginate(page,itemsPage);
 
-        Promise.all([query, User.count({ideaRole: 'COLABORATOR'})])
+        Promise.all([query, User.count({ideaRole: 'COLLABORATOR'})])
         .then((results) => {
             const object = {
                 pages: results[1],
@@ -77,7 +85,9 @@ module.exports = {
             };
             reshelpobject(200,object,res); 
         })
-        .catch(next);
+        .catch(error => {
+            reshelperr(500,error.message,res)
+        });
     },
 //falta validación
     loginWeb(req,res,next){
@@ -104,7 +114,9 @@ module.exports = {
                 reshelperr(400,'No existe el usuario',res);
             
         })
-        .catch(next);
+        .catch(error => {
+            reshelperr(500,error.message,res)
+        });
     }
     else{
         reshelperr(400,'No tienes los permisos suficientes para entrar al sistema',res);

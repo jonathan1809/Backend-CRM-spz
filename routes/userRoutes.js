@@ -11,8 +11,8 @@ module.exports = (app) => {
     app.post('/api/web', UserController.loginWeb); //echo
     app.post('/api/movil', UserController.loginMovil); //echo
     app.get('/api/users/:page?',md_auth.ensureAuth, UserController.getUsers);//echo
-    app.get('/api/coach/:page?',md_auth.ensureAuth, UserController.getCoachs);//echo
-    app.get('/api/colaborator/:page?',md_auth.ensureAuth, UserController.getCollaborators);//echo
+    app.get('/api/coach/:page?', UserController.getCoachs);//echo
+    app.get('/api/colaborator/:page?', UserController.getCollaborators);//echo
     app.put('/api/user/update/:id',md_auth.ensureAuth, UserController.update);//echo
     app.delete('/api/user/:id',md_auth.ensureAuth, UserController.delete);//echo
     
