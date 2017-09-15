@@ -44,7 +44,7 @@ const userSchema = new Schema({
         required:[true,'El campo es requerido']
     },
     phone:{
-        type:Number,
+        type:String,
         required:[true,'El campo es requerido']
     },
     image:String

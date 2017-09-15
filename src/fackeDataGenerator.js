@@ -1,18 +1,10 @@
 const mongoose = require('mongoose'); // tomo el modelo 
 const uuidv4 = require('uuid/v4'); // generador de idetidficadores unicos
-import { _ } from 'lodash';
-import {
-  faker
-} from 'faker';
-import {
-  create
-} from '../controllers/userController';
-import {
-  fakeSystemRole
-} from './arryasFaker/fakeSystemRole';
-import {
-  fakeideaRol
-} from './arryasFaker/fakeideaRol';
+const faker = require('faker');
+const _ = require('lodash');
+const  create = require('../controllers/userController');
+const fakeSystemRole = require('./arryasFaker/fakeSystemRole');
+const fakeideaRol = require('./arryasFaker/fakeideaRol');
 
 
 
@@ -20,8 +12,7 @@ const MINIMUM_USERS = 200;
 const USERS_TO_ADD = 2000;
 
 let usersCollaction;
-
-
+module.exports = () => {
 var uri = 'mongodb://jonathan@192.168.0.15/wendy';
 mongoose.connect(uri, {
     useMongoClient: true,
@@ -40,7 +31,7 @@ mongoose.connect(uri, {
   })
   .then((count) => {
     if (count < MINIMUM_USERS) {
-      const user = _.times(USERS_TO_ADD, () => (create));
+      const user = _.times(USERS_TO_ADD, () => (create.create));
 
       usersCollaction.insertMany(user);
     }
@@ -79,3 +70,4 @@ randomEntry((array) => {
 randomBetween((min, max) => {
   return ~~(Math.random() * (max - min)) + min;
 })
+}

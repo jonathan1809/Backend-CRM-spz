@@ -1,4 +1,4 @@
-export const fakeideaRol = [
+module.exports  = [
 "COLLABORATOR",
  "COACH"
 ]
