@@ -3,19 +3,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    idEmployee: {
+    idEmployee: {    // numeros 
         type:String,
         required:[true,'El campo es requerido']
     },
-    password: {
+    password: {       // numeros 
         type:String,
         required:[true,'El campo es requerido']
     },
-    name: {
+    name: { 
         type:String,
         required:[true,'El campo es requerido']
     },
-    surname: {
+    surname: { // faker.name
         type:String,
         required:[true,'El campo es requerido']
     },
@@ -35,16 +35,16 @@ const userSchema = new Schema({
         type:Date,
         default: null
     },
-    systemRole:{
+    systemRole:{                                // ROLE_USER, ROLE_ADMIN
         type:String,
         required:[true,'El campo es requerido']
     },
-    ideaRole:{
+    ideaRole:{                                   // COLLABORATOR O COACH
         type:String,
         required:[true,'El campo es requerido']
     },
     phone:{
-        type:Number,
+        type:String,
         required:[true,'El campo es requerido']
     },
     image:String

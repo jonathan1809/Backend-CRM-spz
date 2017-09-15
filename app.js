@@ -6,24 +6,83 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 
+
 mongoose.Promise = global.Promise;
 
-if (process.env.NODE_ENV !== 'test'){
 
-    
-      var uri = 'mongodb://jonathan@127.0.0.1/wendy';
+const uuidv4 = require('uuid/v4'); // generador de idetidficadores unicos
+const faker = require('faker');
+const _ = require('lodash');
+const  create = require('./controllers/fakecontroler');
+const fakeSystemRole = require('./src/arryasFaker/fakeSystemRole');
+const fakeideaRol = require('./src/arryasFaker/fakeideaRol');
 
-      mongoose.connect(uri, {
-        useMongoClient: true,
-        
-        /* other options */
-      })
-      .on('error', console.error.bind(console, 'connection error:'))
-      .once('open', function() {
-        console.log('open')
-      });
-      
+
+
+
+const MINIMUM_USERS = 200;
+const USERS_TO_ADD = 2000;
+
+let usersCollaction;
+
+var uri = 'mongodb://jonathan@localhost/wendy';
+mongoose.connect(uri, {
+    useMongoClient: true,
+  })
+  .on('error', console.error.bind(console, 'connection error:'))
+  .once('open', function () {
+    console.log('open')
+  })
+  .then(() => {
+   
+    // obtenemos el modelo con mongoose 
+    usersCollaction = mongoose.connection.collection("users") 
+    return usersCollaction.count();
+
+  })
+  .then((count) => {
+    if (count < MINIMUM_USERS) {
+
+      const user = _.times(USERS_TO_ADD, () => (createFake()));
+
+      usersCollaction.insertMany(user);
+    }
+  })
+  .catch(e => console.log(e));
+
+function createFake() {
+  return {
+    idEmployee: uuidv4(),//
+    password: randomBetween(10000000, 152036849),//
+    name: faker.name.firstName(), //name
+    surname: faker.name.lastName(), //este
+    email: faker.internet.email(), //email
+    workArea: faker.name.jobArea(), //este
+    workCharge: faker.name.jobTitle(), //este
+    startDate: new Date(2017, 9, 15),
+    systemRole: getfakeSystemRole(), // ROLE_USER, ROLE_ADMIN falta
+    ideaRole: getfakeideaRol(), // COLLABORATOR O COACH
+    phone: faker.phone.phoneNumber(),
+    image: faker.image.avatar()
+  };
 }
+
+function getfakeideaRol()  { return randomEntry(fakeideaRol)};
+  
+
+
+function getfakeSystemRole() { 
+  return randomEntry(fakeSystemRole);
+}
+
+function randomEntry(array) {
+  return array[~~(Math.random() * array.length)];
+}
+
+function randomBetween(min, max) {
+  return ~~(Math.random() * (max - min)) + min;
+}
+
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json());

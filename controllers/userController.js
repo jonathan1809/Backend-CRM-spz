@@ -71,12 +71,12 @@ module.exports = {
         var page = req.params.page;
         if(!page)
             page = 1;
-       
+            console.log('entro')
         var itemsPage = 10;
         const query = User.find({ideaRole: 'COLLABORATOR'})
         .sort('surname')
-        .paginate(page,itemsPage);
-
+        
+        
         Promise.all([query, User.count({ideaRole: 'COLLABORATOR'})])
         .then((results) => {
             const object = {
@@ -86,6 +86,7 @@ module.exports = {
             reshelpobject(200,object,res); 
         })
         .catch(error => {
+            console.log(error);
             reshelperr(500,error.message,res)
         });
     },
