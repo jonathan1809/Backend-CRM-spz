@@ -5,14 +5,12 @@ const ideaRoutes =require('./routes/ideaRoutes');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
+import './fackeDataGenerator';
 
 mongoose.Promise = global.Promise;
 
 if (process.env.NODE_ENV !== 'test'){
-
-    
-      var uri = 'mongodb://jonathan@127.0.0.1/wendy';
-
+     var uri = 'mongodb://jonathan@192.168.0.15/wendy';
       mongoose.connect(uri, {
         useMongoClient: true,
         
@@ -23,6 +21,7 @@ if (process.env.NODE_ENV !== 'test'){
         console.log('open')
       });
       
+
 }
 
 app.use(bodyParser.urlencoded({extended: false}))
