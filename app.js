@@ -25,7 +25,7 @@ const USERS_TO_ADD = 2000;
 
 let usersCollaction;
 
-var uri = 'mongodb://jonathan@localhost/wendy';
+var uri = 'mongodb://localhost/wendy';
 mongoose.connect(uri, {
     useMongoClient: true,
   })
