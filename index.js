@@ -1,6 +1,8 @@
 'use strict'
+const config = require('./config');
 const app = require('./app');
-var port = process.env.PORT || 80;
+
+var port = config.port;
 app.listen(port, () => {
     console.log('Running on port 80');
 })

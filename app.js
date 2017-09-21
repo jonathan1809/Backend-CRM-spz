@@ -1,7 +1,7 @@
 const express = require('express');
 const userRoutes = require('./routes/userRoutes');
 const ideaRoutes =require('./routes/ideaRoutes');
-
+const config = require('./config');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
@@ -25,7 +25,7 @@ const USERS_TO_ADD = 2000;
 
 let usersCollaction;
 
-var uri = 'mongodb://localhost/wendy';
+var uri = config.db;
 mongoose.connect(uri, {
     useMongoClient: true,
   })
